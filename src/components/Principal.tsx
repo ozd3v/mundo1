@@ -26,81 +26,69 @@ function Principal() {
         }
 
         loadSpritesheet();
-        const hero = new PIXI.AnimatedSprite(spritesheet.animations.hero);
+        console.log(spritesheet.animations);
+        const hero = new PIXI.AnimatedSprite(spritesheet.animations.right);
         hero.animationSpeed = 0.1666;
         hero.x = app.screen.width / 2
         hero.y = app.screen.height / 2
-        let speed = 0.5
+        hero.anchor.set(0.5)
+        const speed = 1
+        let direction = 'right'
+        let timer = 0
+        const interval = 60
         app.ticker.add(() => {
-            // Move bunny to the right by changing its x position
-            hero.x += speed;
-            // If bunny reaches the edge of the canvas, reverse its direction by changing the sign of speed
-            if (hero.x + hero.width / 2 > app.screen.width || hero.x - hero.width / 2 < 0) {
-                speed *= -1;
+            // Move hero in its current direction
+            if (direction === 'right') {
+                hero.x += speed;
+            } else if (direction === 'left') {
+                hero.x -= speed;
+            } else if (direction === 'down') {
+                hero.y += speed;
+            } else {
+                hero.y -= speed;
+            }
+            // Wrap hero around to the other side of the canvas if it goes offscreen
+            if (hero.x + hero.width / 2 > app.screen.width) {
+                hero.x = app.screen.width - hero.width / 2;
+            }
+            if (hero.x - hero.width / 2 < 0) {
+                hero.x = hero.width / 2;
+            }
+            if (hero.y + hero.height / 2 > app.screen.height) {
+                hero.y = app.screen.height - hero.height / 2;
+            }
+            if (hero.y - hero.height / 2 < 0) {
+                hero.y = hero.height / 2;
+            }
+            // Change hero's direction every interval frames
+            timer++;
+            if (timer >= interval) {
+                timer = 0;
+                const randomDirection = Math.floor(Math.random() * 4);
+                if (randomDirection === 0) {
+                    direction = 'right';
+                    hero.textures = spritesheet.animations.right;
+                } else if (randomDirection === 1) {
+                    direction = 'left';
+                    hero.textures = spritesheet.animations.left;
+                } else if (randomDirection === 2) {
+                    direction = 'down';
+                    hero.textures = spritesheet.animations.down;
+                } else {
+                    direction = 'up';
+                    hero.textures = spritesheet.animations.up;
+                }
+                hero.play(); // Start the animation loop
             }
         });
-        // play the animation on a loop
+
+
+        // Start the animation loop
         hero.play();
+
         // add it to the stage to render
         app.stage.addChild(hero);
 
-        /*
-                PIXI.Assets.load([
-                    heroImg
-                ]).then(() => {
-                    // initialize background image
-                    const hero = PIXI.Sprite.from(heroImg);
-                    app.stage.addChild(hero);
-        
-                    hero.x = app.screen.width / 2
-                    hero.y = app.screen.height / 2
-        
-                    let speed = 0.5
-                    app.ticker.add(() => {
-                        // Move bunny to the right by changing its x position
-                        hero.x += speed;
-                        // If bunny reaches the edge of the canvas, reverse its direction by changing the sign of speed
-                        if (hero.x + hero.width / 2 > app.screen.width || hero.x - hero.width / 2 < 0) {
-                            speed *= -1;
-                        }
-                    });
-        
-                });
-                */
-        /*
-                const loader = PIXI.Loader.shared;
-                loader.add(['./images/char4.png', './images/chsdfsdf.png'])
-                    .add('hero', '../assets/hero-0.png')
-                    .load(setup);
-        
-                function setup(loader, resources) {
-                    const char4Sprite = new Sprite(
-                        resources['../assets/hero-0.png'].texture
-                    );
-                    char4Sprite.y = 400;
-                    app.stage.addChild(char4Sprite);
-                }*/
-
-        /*
-        const bunny = Sprite.from('https://pixijs.com/assets/bunny.png')
-        app.stage.addChild(bunny)
-        // center the sprite's anchor point
-        bunny.anchor.set(0.5)
-
-        // move the sprite to the center of the screen
-        bunny.x = app.screen.width / 2
-        bunny.y = app.screen.height / 2
-
-        let speed = 0.5
-        app.ticker.add(() => {
-            // Move bunny to the right by changing its x position
-            bunny.x += speed;
-            // If bunny reaches the edge of the canvas, reverse its direction by changing the sign of speed
-            if (bunny.x + bunny.width / 2 > app.screen.width || bunny.x - bunny.width / 2 < 0) {
-                speed *= -1;
-            }
-        });
-        */
 
         // Add app to DOM
         if (ref.current) {
@@ -121,3 +109,63 @@ function Principal() {
 }
 
 export default Principal
+
+
+
+/*
+        PIXI.Assets.load([
+            heroImg
+        ]).then(() => {
+            // initialize background image
+            const hero = PIXI.Sprite.from(heroImg);
+            app.stage.addChild(hero);
+ 
+            hero.x = app.screen.width / 2
+            hero.y = app.screen.height / 2
+ 
+            let speed = 0.5
+            app.ticker.add(() => {
+                // Move bunny to the right by changing its x position
+                hero.x += speed;
+                // If bunny reaches the edge of the canvas, reverse its direction by changing the sign of speed
+                if (hero.x + hero.width / 2 > app.screen.width || hero.x - hero.width / 2 < 0) {
+                    speed *= -1;
+                }
+            });
+ 
+        });
+        */
+/*
+        const loader = PIXI.Loader.shared;
+        loader.add(['./images/char4.png', './images/chsdfsdf.png'])
+            .add('hero', '../assets/hero-0.png')
+            .load(setup);
+ 
+        function setup(loader, resources) {
+            const char4Sprite = new Sprite(
+                resources['../assets/hero-0.png'].texture
+            );
+            char4Sprite.y = 400;
+            app.stage.addChild(char4Sprite);
+        }*/
+
+/*
+const bunny = Sprite.from('https://pixijs.com/assets/bunny.png')
+app.stage.addChild(bunny)
+// center the sprite's anchor point
+bunny.anchor.set(0.5)
+
+// move the sprite to the center of the screen
+bunny.x = app.screen.width / 2
+bunny.y = app.screen.height / 2
+
+let speed = 0.5
+app.ticker.add(() => {
+    // Move bunny to the right by changing its x position
+    bunny.x += speed;
+    // If bunny reaches the edge of the canvas, reverse its direction by changing the sign of speed
+    if (bunny.x + bunny.width / 2 > app.screen.width || bunny.x - bunny.width / 2 < 0) {
+        speed *= -1;
+    }
+});
+*/
