@@ -1,22 +1,87 @@
 import React from 'react'
-import { Application, Sprite } from "pixi.js";
-/*
-const app = new Application({
-    width: 800,
-    height: 600,
-    backgroundColor: 0x5BBA6F,
-});
-*/
+import * as PIXI from "pixi.js";
+
+import heroImg from '../assets/hero.png';
+import spritesheetjson from '../assets/hero.json';
+
 function Principal() {
     const ref = React.useRef<HTMLDivElement>(null);
 
     React.useEffect(() => {
         // On first render create our application
-        const app = new Application({
+        const app = new PIXI.Application({
             width: 800,
             height: 600,
             backgroundColor: '#1099bb',
         });
+
+        // Create the SpriteSheet from data and image
+        const spritesheet = new PIXI.Spritesheet(
+            PIXI.BaseTexture.from(heroImg),
+            spritesheetjson
+        );
+        // Generate all the Textures asynchronously
+        async function loadSpritesheet() {
+            await spritesheet.parse();
+        }
+
+        loadSpritesheet();
+        const hero = new PIXI.AnimatedSprite(spritesheet.animations.hero);
+        hero.animationSpeed = 0.1666;
+        hero.x = app.screen.width / 2
+        hero.y = app.screen.height / 2
+        let speed = 0.5
+        app.ticker.add(() => {
+            // Move bunny to the right by changing its x position
+            hero.x += speed;
+            // If bunny reaches the edge of the canvas, reverse its direction by changing the sign of speed
+            if (hero.x + hero.width / 2 > app.screen.width || hero.x - hero.width / 2 < 0) {
+                speed *= -1;
+            }
+        });
+        // play the animation on a loop
+        hero.play();
+        // add it to the stage to render
+        app.stage.addChild(hero);
+
+        /*
+                PIXI.Assets.load([
+                    heroImg
+                ]).then(() => {
+                    // initialize background image
+                    const hero = PIXI.Sprite.from(heroImg);
+                    app.stage.addChild(hero);
+        
+                    hero.x = app.screen.width / 2
+                    hero.y = app.screen.height / 2
+        
+                    let speed = 0.5
+                    app.ticker.add(() => {
+                        // Move bunny to the right by changing its x position
+                        hero.x += speed;
+                        // If bunny reaches the edge of the canvas, reverse its direction by changing the sign of speed
+                        if (hero.x + hero.width / 2 > app.screen.width || hero.x - hero.width / 2 < 0) {
+                            speed *= -1;
+                        }
+                    });
+        
+                });
+                */
+        /*
+                const loader = PIXI.Loader.shared;
+                loader.add(['./images/char4.png', './images/chsdfsdf.png'])
+                    .add('hero', '../assets/hero-0.png')
+                    .load(setup);
+        
+                function setup(loader, resources) {
+                    const char4Sprite = new Sprite(
+                        resources['../assets/hero-0.png'].texture
+                    );
+                    char4Sprite.y = 400;
+                    app.stage.addChild(char4Sprite);
+                }*/
+
+        /*
         const bunny = Sprite.from('https://pixijs.com/assets/bunny.png')
         app.stage.addChild(bunny)
         // center the sprite's anchor point
@@ -26,13 +91,16 @@ function Principal() {
         bunny.x = app.screen.width / 2
         bunny.y = app.screen.height / 2
 
-        // Listen for animate update
-        app.ticker.add((delta) => {
-            // just for fun, let's rotate mr rabbit a little
-            // delta is 1 if running at 100% performance
-            // creates frame-independent transformation
-            bunny.rotation += 0.1 * delta;
+        let speed = 0.5
+        app.ticker.add(() => {
+            // Move bunny to the right by changing its x position
+            bunny.x += speed;
+            // If bunny reaches the edge of the canvas, reverse its direction by changing the sign of speed
+            if (bunny.x + bunny.width / 2 > app.screen.width || bunny.x - bunny.width / 2 < 0) {
+                speed *= -1;
+            }
         });
+        */
 
         // Add app to DOM
         if (ref.current) {
@@ -53,61 +121,3 @@ function Principal() {
 }
 
 export default Principal
-//type Props = {}
-//type FixmeAny = unknown;
-/*
-function Principal() {
-    const ref: React.RefObject<HTMLDivElement> = React.useRef(null);
-
-    React.useEffect(() => {
-        // On first render add app to DOM
-        const div = document.createElement('div');
-        div.appendChild(app.view as unknown as Node); // Cast app.view to Node type
-        ref.current?.appendChild(div);
-        // Start the PixiJS app
-        app.start();
-
-        return () => {
-            // On unload stop the application
-            app.stop();
-        };
-    }, []);
-
-    return (
-        <div ref={ref}>Principal</div>
-    )
-}
-
-export default Principal
-*/
-
-/*
-import React, { useRef, useEffect } from "react";
-import { Application } from "pixi.js";
-
-function MyComponent() {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    // On first render create our application
-    const app = new Application({
-      width: 800,
-      height: 600,
-      backgroundColor: 0x5BBA6F,
-    });
-
-    // Add app to DOM
-    ref.current.appendChild(app.view);
-    // Start the PixiJS app
-    app.start();
-
-    return () => {
-      // On unload completely destroy the application and all of it's children
-      app.destroy(true, true);
-    };
-  }, []);
- 
-  return <div ref={ref} />;
-}
-
-*/
