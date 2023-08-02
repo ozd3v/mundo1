@@ -14,8 +14,8 @@ function Principal() {
     React.useEffect(() => {
         // Create our PixiJS application
         const app = new PIXI.Application({
-            width: 800,
-            height: 600,
+            width: 400,
+            height: 300,
             backgroundColor: '#1099bb',
         });
 
@@ -48,19 +48,21 @@ function Principal() {
             screen: {
                 width: app.screen.width,
                 height: app.screen.height
-            }
+            },
+            name: 'hero'
         }
         const configEnemy = {
             animationSpeedParam: 0.1666,
             xpos: app.screen.width / 2 - 100,
-            ypos: app.screen.height / 2 - 100,
+            ypos: app.screen.height / 2 - 40,
             anchorNumber: 0.5,
             speed: 0.2,
             interval: 60,
             screen: {
                 width: app.screen.width,
                 height: app.screen.height
-            }
+            },
+            name: 'enemy'
         }
 
 
@@ -70,6 +72,8 @@ function Principal() {
         const handleTicker = () => {
             hero.ticker();
             enemy.ticker();
+            hero.checkCollision(enemy)
+
         };
         app.ticker.add(handleTicker);
         app.stage.addChild(hero);
@@ -105,6 +109,12 @@ type config = {
     speed: number;
     interval: number;
     screen: Screen;
+    name?: string;
+}
+class CustomHitArea extends PIXI.Graphics implements PIXI.IHitArea {
+    public contains(x: number, y: number): boolean {
+        return this.getBounds().contains(x, y);
+    }
 }
 class Character extends PIXI.AnimatedSprite {
 
@@ -114,6 +124,8 @@ class Character extends PIXI.AnimatedSprite {
     private timer: number = 0;
     private interval: number;
     private parAnimations: PIXI.utils.Dict<PIXI.Texture<PIXI.Resource>[]>
+    private charName: string;
+    private isStopped: boolean = false;
 
     constructor(spritesheetDirection: string, spritesheet: PIXI.Spritesheet, config: config) {
         super(spritesheet.animations[spritesheetDirection]);
@@ -127,9 +139,40 @@ class Character extends PIXI.AnimatedSprite {
         this.interval = config.interval;
         this.parAnimations = spritesheet.animations;
         this.speed = config.speed;
+        this.charName = config.name || 'default';
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        this.on('pointerdown', (_event) => { console.log(`clicked on ${this.charName}`); });
+        this.eventMode = 'static';
+
+        // Create a rectangle to contain the sprite
+        const rect = new PIXI.Graphics();
+        rect.lineStyle(1, 0x0000ff); // Set the border color to blue and the line width to 2 pixels
+        rect.beginFill(0xffffff, 0); // Set the fill color to white and the fill alpha to 0 (fully transparent)
+        rect.drawRect(-this.width / 2, -this.height / 2, this.width, this.height);
+        rect.endFill();
+        this.addChild(rect); // Add the rectangle as a child of the sprite
+
+        const newHitArea = new PIXI.Graphics();
+        newHitArea.lineStyle(1, 0xff0000); // Set the border color to blue and the line width to 2 pixels
+        newHitArea.beginFill(0xffffff, 0); // Set the fill color to white and the fill alpha to 0 (fully transparent)
+        newHitArea.drawRect(-this.width * 0.4, -this.height / 2, this.width * 0.8, this.height);
+        newHitArea.endFill();
+        this.addChild(newHitArea);
+
+        const customnewHitArea = new CustomHitArea();
+        newHitArea.lineStyle(1, 0xff0000); // Set the border color to red and the line width to 1 pixel
+        newHitArea.beginFill(0xffffff, 0); // Set the fill color to white and the fill alpha to 0 (fully transparent)
+        newHitArea.drawRect(-this.width * 0.4, -this.height / 2, this.width * 0.8, this.height);
+        newHitArea.endFill();
+        this.hitArea = customnewHitArea;
+
+        // Set the tint property of the sprite to the desired color
+        //this.tint = 0xff0000; // Red color
 
     }
     private setDirection() {
+        if (this.isStopped) return;
+
         if (this.direction === 'right') {
             this.x += this.speed;
         } else if (this.direction === 'left') {
@@ -143,6 +186,8 @@ class Character extends PIXI.AnimatedSprite {
     private checkBorders() {
         // Wrap character around to the other side of the canvas if it goes offscreen
         // Wrap hero around to the other side of the canvas if it goes offscreen
+        if (this.isStopped) return;
+
         if (this.x + this.width / 2 > this.screen.width) {
             this.x = this.screen.width - this.width / 2;
         }
@@ -163,7 +208,7 @@ class Character extends PIXI.AnimatedSprite {
         this.checkBorders();
         // Change character's direction every interval frames
         this.timer++;
-        if (this.timer >= this.interval) {
+        if (this.timer >= this.interval && !this.isStopped) {
             this.timer = 0;
             const randomDirection = Math.floor(Math.random() * 4);
             if (randomDirection === 0) {
@@ -181,7 +226,14 @@ class Character extends PIXI.AnimatedSprite {
             }
             this.play(); // Start the animation loop
         }
-
+    }
+    //oneSprite.getBounds().intersects(otherSprite.getBounds());
+    public checkCollision(otherSprite: Character) {
+        if (this.getBounds().intersects(otherSprite.getBounds())) {
+            console.log(`collision between ${this.charName} and ${otherSprite.charName}`);
+            this.stop();
+            this.isStopped = true;
+        }
     }
 }
 
