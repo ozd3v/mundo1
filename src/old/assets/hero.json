@@ -257,6 +257,11 @@
 			"up-2.png",
 			"up-3.png"
 		],
+		"stand_up": [
+			"up-1.png",
+			"up-2.png",
+			"up-3.png"
+		],
 		"down": [
 			"down-1.png",
 			"down-2.png",

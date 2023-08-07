@@ -1,0 +1,307 @@
+{
+	"frames": [
+		{
+			"filename": "0",
+			"frame": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"rotated": false,
+			"trimmed": true,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"sourceSize": {
+				"w": 48,
+				"h": 48
+			},
+			"duration": 83
+		},
+		{
+			"filename": "1",
+			"frame": {
+				"x": 48,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"rotated": false,
+			"trimmed": true,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"sourceSize": {
+				"w": 48,
+				"h": 48
+			},
+			"duration": 83
+		},
+		{
+			"filename": "2",
+			"frame": {
+				"x": 96,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"rotated": false,
+			"trimmed": true,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"sourceSize": {
+				"w": 48,
+				"h": 48
+			},
+			"duration": 83
+		},
+		{
+			"filename": "3",
+			"frame": {
+				"x": 0,
+				"y": 48,
+				"w": 48,
+				"h": 48
+			},
+			"rotated": false,
+			"trimmed": true,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"sourceSize": {
+				"w": 48,
+				"h": 48
+			},
+			"duration": 83
+		},
+		{
+			"filename": "4",
+			"frame": {
+				"x": 48,
+				"y": 48,
+				"w": 48,
+				"h": 48
+			},
+			"rotated": false,
+			"trimmed": true,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"sourceSize": {
+				"w": 48,
+				"h": 48
+			},
+			"duration": 83
+		},
+		{
+			"filename": "5",
+			"frame": {
+				"x": 96,
+				"y": 48,
+				"w": 48,
+				"h": 48
+			},
+			"rotated": false,
+			"trimmed": true,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"sourceSize": {
+				"w": 48,
+				"h": 48
+			},
+			"duration": 83
+		},
+		{
+			"filename": "6",
+			"frame": {
+				"x": 0,
+				"y": 96,
+				"w": 48,
+				"h": 48
+			},
+			"rotated": false,
+			"trimmed": true,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"sourceSize": {
+				"w": 48,
+				"h": 48
+			},
+			"duration": 83
+		},
+		{
+			"filename": "7",
+			"frame": {
+				"x": 48,
+				"y": 96,
+				"w": 48,
+				"h": 48
+			},
+			"rotated": false,
+			"trimmed": true,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"sourceSize": {
+				"w": 48,
+				"h": 48
+			},
+			"duration": 83
+		},
+		{
+			"filename": "8",
+			"frame": {
+				"x": 96,
+				"y": 96,
+				"w": 48,
+				"h": 48
+			},
+			"rotated": false,
+			"trimmed": true,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"sourceSize": {
+				"w": 48,
+				"h": 48
+			},
+			"duration": 83
+		},
+		{
+			"filename": "9",
+			"frame": {
+				"x": 0,
+				"y": 144,
+				"w": 48,
+				"h": 48
+			},
+			"rotated": false,
+			"trimmed": true,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"sourceSize": {
+				"w": 48,
+				"h": 48
+			},
+			"duration": 83
+		},
+		{
+			"filename": "10",
+			"frame": {
+				"x": 48,
+				"y": 144,
+				"w": 48,
+				"h": 48
+			},
+			"rotated": false,
+			"trimmed": true,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"sourceSize": {
+				"w": 48,
+				"h": 48
+			},
+			"duration": 83
+		},
+		{
+			"filename": "11",
+			"frame": {
+				"x": 96,
+				"y": 144,
+				"w": 48,
+				"h": 48
+			},
+			"rotated": false,
+			"trimmed": true,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 48,
+				"h": 48
+			},
+			"sourceSize": {
+				"w": 48,
+				"h": 48
+			},
+			"duration": 83
+		}
+	],
+	"meta": {
+		"app": "http://www.aseprite.org/",
+		"version": "1.2.25",
+		"image": "enemy.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 144,
+			"h": 192
+		},
+		"scale": "1",
+		"frameTags": [
+			{
+				"name": "enemy-down",
+				"from": 0,
+				"to": 2,
+				"direction": "forward"
+			},
+			{
+				"name": "enemy-left",
+				"from": 3,
+				"to": 5,
+				"direction": "forward"
+			},
+			{
+				"name": "enemy-up",
+				"from": 9,
+				"to": 11,
+				"direction": "forward"
+			},
+			{
+				"name": "enemy-right",
+				"from": 6,
+				"to": 8,
+				"direction": "forward"
+			}
+		],
+		"layers": [],
+		"slices": []
+	}
+}
