@@ -1,9 +1,18 @@
 import { Physics } from 'phaser';
 import { actorConfig } from "../types";
+
+export enum ActorState {
+    IDLE,
+    WALKING,
+    ATTACKING,
+    WALKING_ATTACKING
+}
 export class Actor extends Physics.Arcade.Sprite {
     protected hp: number = 100;
     private spriteID: string;
     private animsTags: Phaser.Animations.Animation[] = [];
+    protected currentState: ActorState = ActorState.IDLE;
+    private config: actorConfig;
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string, config?: actorConfig, frame?: string | number) {
         super(scene, x, y, texture, frame);
@@ -13,6 +22,17 @@ export class Actor extends Physics.Arcade.Sprite {
         this.spriteID = texture;
         this.initAnimations();
         this.setupConfig(config);
+        this.config = config as actorConfig;
+        //this.setBoxSize({ width: 0.8, height: -1 });
+        //this.setTintFill(0x00ff00);
+    }
+
+    public setConfig(config: actorConfig): void {
+        this.config = config;
+    }
+
+    public getConfig(): actorConfig {
+        return this.config;
     }
 
     public getDamage(value?: number): void {
@@ -62,6 +82,7 @@ export class Actor extends Physics.Arcade.Sprite {
         if (!config) {
             return;
         }
+        this.setConfig(config);
         if (config.box?.width && config.box?.height) {
             this.setBoxSize(config.box);
         }
@@ -76,6 +97,23 @@ export class Actor extends Physics.Arcade.Sprite {
         if (width % 1 !== 0) width = this.width * box.width
         if (height % 1 !== 0) height = this.height * box.height
         this.setSize(width, height);
+        console.log('width: ' + width + ' height: ' + height);
 
+    }
+    protected playAnimation(direction: string) {
+        if (this.currentState === ActorState.WALKING || this.currentState === ActorState.WALKING_ATTACKING) {
+            this.play({
+                key: this.config.prefix + direction,
+                repeat: this.config.repeat,
+                frameRate: this.config.frameRate,
+            }, true);
+        }
+    }
+
+    protected playAttackAnimation() {
+        if (this.currentState === ActorState.ATTACKING || this.currentState === ActorState.WALKING_ATTACKING) {
+            // Implementar la lógica para reproducir la animación de ataque aquí
+            console.log('attack animation');
+        }
     }
 }

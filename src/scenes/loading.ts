@@ -8,6 +8,7 @@ export class LoadingScene extends Scene {
         this.load.baseURL = 'assets/';
         this.load.aseprite('enemy', 'sprites/enemy.png', 'sprites/enemyase.json');
         this.load.aseprite('hero', 'sprites/hero.png', 'sprites/heroase.json');
+        this.load.aseprite('cruzader', 'sprites/cruzader.png', 'sprites/cruzaderase.json');
     }
     create(): void {
         console.log('Loading scene was created');

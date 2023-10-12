@@ -5,6 +5,7 @@ import { actorConfig } from "../types";
 export class HomeTown extends Scene {
     private enemy!: Physics.Arcade.Sprite;
     private player!: Physics.Arcade.Sprite;
+    private cruzader!: Physics.Arcade.Sprite;
     constructor() {
         super('HomeTown-1');
     }
@@ -41,12 +42,30 @@ export class HomeTown extends Scene {
                 height: height
             }
         }
+        const configcruzader: actorConfig = {
+            animationSpeedParam: 0,
+            prefix: 'cruzader-',
+            frameRate: 5,
+            repeat: -1,
+            box: {
+                width: -1,
+                height: -1
+            },
+            canvas: {
+                width: width,
+                height: height
+            }
+        }
         this.enemy = new NPC(this, 100, 150, 'enemy', configenemy);
-        this.player = new Player(this, 100, 100, 'hero', configHero);
+        this.player = new Player(this, 100, 100, 'cruzader', configcruzader);
+        //this.add.sprite(50, 100, 'hero').setInteractive(this.input.makePixelPerfect(150));
+        //this.physics.add.sprite(50, 100, 'hero').setInteractive(this.input.makePixelPerfect(150));
+        //this.cruzader = new NPC(this, 200, 100, 'cruzader', configcruzader);
         //this.enemy.setOffset(8, 0);
     }
     update(): void {
         this.enemy.update();
         this.player.update();
+        //this.cruzader.update();
     }
 }
