@@ -32,7 +32,7 @@ export class Player extends Actor {
 
             if (animation.key === this.getConfig().prefix + 'stand') { // Asegúrate de cambiar 'stand' por el nombre correcto de la animación de ataque
                 this.setAttackFrameProperties(frame.index);
-                //console.log(frame.index)
+                console.log(frame.index)
             }
         });
     }
@@ -106,13 +106,13 @@ export class Player extends Actor {
                 this.currentState = ActorState.ATTACKING;
             }
             this.direction = 'stand';
-            /*
-            this.play({
-                key: this.getConfig().prefix + 'stand',
-                repeat: 0,//this.config.repeat,
-                frameRate: 10,
-            }, true)*/
-            this.playAttackAnimation();
+            /* attack animation
+                        this.play({
+                            key: this.getConfig().prefix + 'stand',
+                            repeat: 0,//this.config.repeat,
+                            frameRate: 10,
+                        }, true)*/
+            //this.playAttackAnimation();
 
         } else if (!isWalking) {
             this.currentState = ActorState.IDLE;

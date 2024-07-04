@@ -1,9 +1,9 @@
 import Phaser from 'phaser'
 import reactLogo from '../assets/react.svg'
 import heroSpriteSheet from '../assets/hero.png'
-import heroJson from '../assets/heroase.json';
+import heroJson from '../assets/sprites/heroase.json';
 import enemySpriteSheet from '../assets/enemy.png'
-import enemyJson from '../assets/enemyase.json';
+import enemyJson from '../assets/sprites/enemyase.json';
 
 let enemy: Phaser.Physics.Arcade.Sprite;
 //let directionTimer: Phaser.Time.TimerEvent;
